@@ -13,6 +13,8 @@ const {
 } = require('./build-utils');
 
 
+const DEFAULT_PYTHON_VERSION = 'python3.9';
+
 exports.config = {
   maxLambdaSize: '15mb',
 };
@@ -27,7 +29,7 @@ exports.build = async ({ files, entrypoint, config }) => {
   );
   log.info(`Build AMI version: ${systemReleaseContents.trim()}`);
 
-  const runtime = config.runtime || 'python3.8';
+  const runtime = config.runtime || DEFAULT_PYTHON_VERSION;
   python.validateRuntime(runtime);
   log.info(`Lambda runtime: ${runtime}`);
 
@@ -75,7 +77,7 @@ exports.build = async ({ files, entrypoint, config }) => {
   const lambda = await createLambda({
     files: await glob('**', srcDir),
     handler: 'lambda.vercel_handler',
-    runtime: `${config.runtime || 'python3.8'}`,
+    runtime: `${config.runtime || DEFAULT_PYTHON_VERSION}`,
     environment: {
       WSGI_APPLICATION: `${wsgiApplication}`,
     },

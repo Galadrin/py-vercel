@@ -94,12 +94,12 @@ handler. This can cause issues if your project requires a different version of
 
 ### `runtime`
 
-Select the lambda runtime. Defaults to `python3.8`.
+Select the lambda runtime. Defaults to `python3.9`.
 
 ```json
 {
     "builds": [{
-        "config": { "runtime": "python3.8" }
+        "config": { "runtime": "python3.9" }
     }]
 }
 ```
