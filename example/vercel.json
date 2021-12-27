@@ -1,8 +1,16 @@
 {
-    "builds": [
+    "builds": [{
+        "src": "app/wsgi.py",
+        "use": "git+https://github.com/jgtvares/py-vercel.git#main",
+        "config": {
+            "maxLambdaSize": "30mb",
+            "runtime": "python3.6"
+        }
+    }],
+    "routes": [
         {
-            "src": "index.py",
-            "use": "@potatohd/py-vercel"
+            "src": "/(.*)",
+            "dest": "app/wsgi.py"
         }
     ]
 }
