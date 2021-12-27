@@ -10,7 +10,7 @@ async function install(scriptPath) {
     const ret = await execa('bash', [scriptPath]);
     log.info(ret.stdout);
   } catch (err) {
-    log.error();
+    log.error(err.message);
     throw err;
   }
 }
