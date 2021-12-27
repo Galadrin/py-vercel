@@ -35,10 +35,6 @@ function findRequirements(entrypoint, files) {
   return null;
 }
 
-module.exports = {
-  install, findRequirements,
-};
-
 function findPostRequirements(entrypoint, files) {
   log.subheading('Searching for "post-install.sh"');
 
