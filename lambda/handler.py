@@ -41,8 +41,6 @@ TEXT_MIME_TYPES = [
 
 
 def handler(app, lambda_event):
-    print(app)
-    print(json.loads(lambda_event))
     event = json.loads(lambda_event['body'])
     headers = Headers(event.get('headers', None))
     parsed_url = urlparse(event['path'])

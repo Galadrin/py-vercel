@@ -5,7 +5,12 @@ const download = require('@vercel/build-utils/fs/download'); // eslint-disable-l
 const glob = require('@vercel/build-utils/fs/glob'); // eslint-disable-line import/no-extraneous-dependencies
 const { createLambda } = require('@vercel/build-utils/lambda'); // eslint-disable-line import/no-extraneous-dependencies
 
-const { log, pip, python, linux } = require('./build-utils');
+const {
+  log,
+  pip,
+  python,
+  linux,
+} = require('./build-utils');
 
 
 exports.config = {
@@ -58,7 +63,7 @@ exports.build = async ({ files, entrypoint, config }) => {
   if (requirementsTxtPath) {
     await pip.install(pipPath, srcDir, '-r', requirementsTxtPath);
   }
-  
+
   log.heading('Running post script');
   setupPath = linux.findPostRequirements(entrypoint, files);
   if (setupPath) {
@@ -69,7 +74,7 @@ exports.build = async ({ files, entrypoint, config }) => {
 
   const lambda = await createLambda({
     files: await glob('**', srcDir),
-    handler: 'lambda.handler',
+    handler: 'lambda.vercel_handler',
     runtime: `${config.runtime || 'python3.8'}`,
     environment: {
       WSGI_APPLICATION: `${wsgiApplication}`,
