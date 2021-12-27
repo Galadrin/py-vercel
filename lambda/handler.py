@@ -20,7 +20,7 @@ from werkzeug.wrappers import Response
 from io import BytesIO
 from werkzeug._internal import _wsgi_encoding_dance, _to_bytes
 
-from urllib.parse import urlparse, unquote, urlencode
+from urllib.parse import urlparse, unquote
 
 # Set up logging
 root = logging.getLogger()

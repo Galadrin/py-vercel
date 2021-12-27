@@ -1,11 +1,11 @@
 const log = require('./log');
 const pip = require('./pip');
 const python = require('./python');
-const apt = require('./apt');
+const linux = require('./linux');
 
 module.exports = {
   log,
   pip,
   python,
-  apt,
+  linux,
 };

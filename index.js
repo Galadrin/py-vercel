@@ -5,12 +5,7 @@ const download = require('@vercel/build-utils/fs/download'); // eslint-disable-l
 const glob = require('@vercel/build-utils/fs/glob'); // eslint-disable-line import/no-extraneous-dependencies
 const { createLambda } = require('@vercel/build-utils/lambda'); // eslint-disable-line import/no-extraneous-dependencies
 
-const {
-  log,
-  pip,
-  python,
-  apt,
-} = require('./build-utils');
+const { log, pip, python, linux } = require('./build-utils');
 
 
 exports.config = {
@@ -19,7 +14,7 @@ exports.config = {
 
 
 exports.build = async ({ files, entrypoint, config }) => {
-  log.info(`Files: ${files}`);
+  log.info(`Files: ${JSON.parse(files)}`);
   log.title('Starting build');
   const systemReleaseContents = await readFile(
     path.join('/etc', 'system-release'),
@@ -53,9 +48,9 @@ exports.build = async ({ files, entrypoint, config }) => {
   await pip.install(pipPath, srcDir, __dirname);
 
   log.heading('Running setup script');
-  let setupPath = apt.findRequirements(entrypoint, files);
+  let setupPath = linux.findRequirements(entrypoint, files);
   if (setupPath) {
-    await apt.install(setupPath);
+    await linux.install(setupPath);
   }
 
   log.heading('Running pip script');
@@ -65,16 +60,16 @@ exports.build = async ({ files, entrypoint, config }) => {
   }
   
   log.heading('Running post script');
-  setupPath = apt.findPostRequirements(entrypoint, files);
+  setupPath = linux.findPostRequirements(entrypoint, files);
   if (setupPath) {
-    await apt.install(setupPath);
+    await linux.install(setupPath);
   }
 
   log.heading('Preparing lambda bundle');
 
   const lambda = await createLambda({
     files: await glob('**', srcDir),
-    handler: 'pyvercel.vercel_handler',
+    handler: 'lambda.handler',
     runtime: `${config.runtime || 'python3.8'}`,
     environment: {
       WSGI_APPLICATION: `${wsgiApplication}`,
