@@ -14,7 +14,7 @@ exports.config = {
 
 
 exports.build = async ({ files, entrypoint, config }) => {
-  log.info(`Files: ${JSON.parse(files)}`);
+  log.info(`Files: ${JSON.stringify(files)}`);
   log.title('Starting build');
   const systemReleaseContents = await readFile(
     path.join('/etc', 'system-release'),
