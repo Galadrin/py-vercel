@@ -13,7 +13,7 @@ setup(
     name='py-vercel',
     version=version,
     packages=[
-        'pyvercel'
+        'lambda'
     ],
     install_requires=[
         'Werkzeug',
