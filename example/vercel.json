@@ -3,8 +3,7 @@
         "src": "app/wsgi.py",
         "use": "git+https://github.com/jgtvares/py-vercel.git#main",
         "config": {
-            "maxLambdaSize": "30mb",
-            "runtime": "python3.6"
+            "maxLambdaSize": "30mb"
         }
     }],
     "routes": [

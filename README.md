@@ -24,16 +24,16 @@ Add a `vercel.json` file to the root of your application:
 This configuration is doing a few things in the `"builds"` part:
 
 1. `"src": "index.py"`
-   This tells Now that there is one entrypoint to build for. `index.py` is a
+   This tells Vercel that there is one entrypoint to build for. `index.py` is a
    file we'll create shortly.
 2. `"use": "@jgtvares/py-vercel"`
-   Tell Now to use this builder when deploying your application
+   Tell Vercel to use this builder when deploying your application
 3. `"config": { "maxLambdaSize": "15mb" }`
    Bump up the maximum size of the built application to accommodate some larger
    python WSGI libraries (like Django or Flask). This may not be necessary for
    you.
 
-### 2. Add a Now entrypoint
+### 2. Add a Vercel entrypoint
 
 Add `index.py` to the root of your application. This entrypoint should make
 available an object named `application` that is an instance of your WSGI
@@ -45,6 +45,21 @@ from django_app.wsgi import application
 # Replace `django_app` with the appropriate name to point towards your project's
 # wsgi.py file
 ```
+- If you're using any database lib, like `pymysql`, you'll need to install it as a MySql module before any Django code in your `wsgi.py` file. Like this:
+    ```python
+    # wsgi.py
+    import os
+    import sys
+    import pymysql # import pymysql
+
+    pymysql.install_as_MySQLdb() # call this method before any Django import
+
+    from django.core.wsgi import get_wsgi_application
+
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', '<folder_name>.settings')
+
+    application = get_wsgi_application()
+    ```
 
 Look at your framework documentation for help getting access to the WSGI
 application.
@@ -68,13 +83,15 @@ $ vercel
 
 ### Linux requirements
 
-Your project may optionally include a `apt-requirements.txt` file to declare any
-dependencies, e.g.:
+If you need any Linux dependencies you can add a `install.sh` file at the root of your project containing the commands you want to execute inside the Lambda instance. This script is executed before Python requirements (section below). For example:
 
-```text
-# apt-requirements.txt
-mysql
+```bash
+#!/bin/bash
+yum install -y gcc musl-dev mysql-devel
 ```
+
+You can also add a `post-install.sh` file at the root of your project to run commands after all dependencies are installed.
+This script is executed after Python requirements (section below).
 
 ### Python requirements
 
@@ -122,7 +139,7 @@ Select the WSGI application to run from your entrypoint. Defaults to
 ### Routing
 
 You'll likely want all requests arriving at your deployment url to be routed to
-your application. You can do this by adding a route rewrite to the Now
+your application. You can do this by adding a route rewrite to the Vercel
 configuration:
 
 ```json
@@ -140,7 +157,7 @@ configuration:
 ### Avoiding the `index.py` file
 
 If having an extra file in your project is troublesome or seems unecessary, it's
-also possible to configure Now to use your application directly, without passing
+also possible to configure Vercel to use your application directly, without passing
 it through `index.py`.
 
 If your WSGI application lives in `vercel_app/wsgi.py` and is named `application`,
@@ -173,3 +190,4 @@ This implementation draws upon work from:
 
 - [vercel-python-wsgi](https://github.com/jayhale/vercel-python-wsgi) by
    [@jayhale](https://github.com/jayhale)
+- [py-vercel](https://github.com/PotatoHD404/py-vercel) by [@PotatoHD404](https://github.com/PotatoHD404)
