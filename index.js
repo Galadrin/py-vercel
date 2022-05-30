@@ -87,6 +87,6 @@ exports.build = async ({ files, entrypoint, config }) => {
 
   return {
     [entrypoint]: lambda,
-    output: JSON.stringify(config),
+    output: config,
   };
 };

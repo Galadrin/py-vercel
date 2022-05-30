@@ -1,6 +1,6 @@
 {
 	"name": "@jgtvares/py-vercel",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"description": "Linux package installer on Vercel",
 	"main": "index.js",
 	"repository": {
