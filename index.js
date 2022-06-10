@@ -5,7 +5,6 @@ const download = require('@vercel/build-utils/fs/download'); // eslint-disable-l
 const glob = require('@vercel/build-utils/fs/glob'); // eslint-disable-line import/no-extraneous-dependencies
 const { createLambda } = require('@vercel/build-utils/lambda'); // eslint-disable-line import/no-extraneous-dependencies
 const vanillaGlob_ = require('glob');
-export type GlobOptions = vanillaGlob_.IOptions;
 
 const {
   log,
@@ -95,7 +94,7 @@ exports.build = async ({ workPath,
     output: config,
   };
 */
-  const globOptions: GlobOptions = {
+  const globOptions: vanillaGlob_.IOptions = {
     cwd: workPath,
     ignore:
       config && typeof config.excludeFiles === 'string'
