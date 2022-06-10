@@ -91,7 +91,7 @@ exports.build = async ({ files, entrypoint, config }) => {
 */
 
   const lambda = await createLambda({
-    files: await glob('**', globOptions),
+    files: await glob('**', srcDir),
     handler: 'lambda.vercel_handler',
     runtime: `${config.runtime || DEFAULT_PYTHON_VERSION}`,
     environment: {},
