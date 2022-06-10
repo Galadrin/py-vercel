@@ -4,7 +4,6 @@ const getWritableDirectory = require('@vercel/build-utils/fs/get-writable-direct
 const download = require('@vercel/build-utils/fs/download'); // eslint-disable-line import/no-extraneous-dependencies
 const glob = require('@vercel/build-utils/fs/glob'); // eslint-disable-line import/no-extraneous-dependencies
 const { createLambda } = require('@vercel/build-utils/lambda'); // eslint-disable-line import/no-extraneous-dependencies
-const vanillaGlob_ = require('glob');
 
 const {
   log,
@@ -94,16 +93,10 @@ exports.build = async ({ workPath,
     output: config,
   };
 */
-  const globOptions = vanillaGlob_.IOptions = {
-    cwd: workPath,
-    ignore:
-      config && typeof config.excludeFiles === 'string'
-        ? config.excludeFiles
-        : 'node_modules/**',
-  };
+
 
   const lambda = await createLambda({
-    files: await glob('**', globOptions),
+    files: await glob('**', {"ignore":['node_modules/**']}),
     handler: 'lambda.vercel_handler',
     runtime: `${config.runtime || DEFAULT_PYTHON_VERSION}`,
     environment: {},
