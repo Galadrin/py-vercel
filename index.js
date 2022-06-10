@@ -20,7 +20,11 @@ exports.config = {
 };
 
 
-exports.build = async ({ files, entrypoint, config }) => {
+exports.build = async ({ workPath,
+  files: originalFiles,
+  entrypoint,
+  meta = {},
+  config }) => {
   log.info(`Files: ${JSON.stringify(files)}`);
   log.title('Starting build');
   const systemReleaseContents = await readFile(
@@ -89,9 +93,16 @@ exports.build = async ({ files, entrypoint, config }) => {
     output: config,
   };
 */
+  const globOptions: GlobOptions = {
+    cwd: workPath,
+    ignore:
+      config && typeof config.excludeFiles === 'string'
+        ? config.excludeFiles
+        : 'node_modules/**',
+  };
 
   const lambda = await createLambda({
-    files: await glob('**', srcDir),
+    files: await glob('**', globOptions),
     handler: 'lambda.vercel_handler',
     runtime: `${config.runtime || DEFAULT_PYTHON_VERSION}`,
     environment: {},
