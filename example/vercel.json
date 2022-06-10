@@ -1,7 +1,7 @@
 {
     "builds": [{
         "src": "app/wsgi.py",
-        "use": "git+https://github.com/jgtvares/py-vercel.git#main",
+        "use": "git+https://github.com/Galadrin/py-vercel.git#main",
         "config": {
             "maxLambdaSize": "30mb"
         }

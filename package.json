@@ -1,13 +1,13 @@
 {
-	"name": "@jgtvares/py-vercel",
+	"name": "@Galadrin/py-vercel",
 	"version": "2.2.0",
 	"description": "Linux package installer on Vercel",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/jgtvares/py-vercel.git"
+		"url": "git+https://github.com/Galadrin/py-vercel.git"
 	},
-	"author": "jgtvares <joaogabrielsilvatavares@gmail.com>",
+	"author": "Galadrin <joaogabrielsilvatavares@gmail.com>",
 	"license": "MIT",
 	"private": false,
 	"dependencies": {
@@ -24,9 +24,9 @@
 		"pre-commit": "^1.2.2"
 	},
 	"bugs": {
-		"url": "https://github.com/jgtvares/py-vercel/issues"
+		"url": "https://github.com/Galadrin/py-vercel/issues"
 	},
-	"homepage": "https://github.com/jgtvares/py-vercel#readme",
+	"homepage": "https://github.com/Galadrin/py-vercel#readme",
 	"directories": {
 		"example": "example"
 	},
