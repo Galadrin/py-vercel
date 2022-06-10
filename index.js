@@ -85,6 +85,8 @@ exports.build = async ({ files, entrypoint, config }) => {
 
   log.title('Done!');
 
+  log.title(lambda);
+  log.title(config);
   return {
     [entrypoint]: lambda,
     output: config,
