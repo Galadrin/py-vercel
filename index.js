@@ -5,7 +5,7 @@ const download = require('@vercel/build-utils/fs/download'); // eslint-disable-l
 const glob = require('@vercel/build-utils/fs/glob'); // eslint-disable-line import/no-extraneous-dependencies
 const { createLambda } = require('@vercel/build-utils/lambda'); // eslint-disable-line import/no-extraneous-dependencies
 const vanillaGlob_ = require('glob');
-type GlobOptions = vanillaGlob_.IOptions;
+export type GlobOptions = vanillaGlob_.IOptions;
 
 const {
   log,
