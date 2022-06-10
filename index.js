@@ -94,7 +94,7 @@ exports.build = async ({ workPath,
     output: config,
   };
 */
-  const globOptions: vanillaGlob_.IOptions = {
+  const globOptions = vanillaGlob_.IOptions = {
     cwd: workPath,
     ignore:
       config && typeof config.excludeFiles === 'string'
